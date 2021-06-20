@@ -7,9 +7,34 @@ class Login extends Component {
     super(props);
     this.state = { errorMessage: "" };
 
+    this.attemptAutoLogin = this.attemptAutoLogin.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
     this.authenticateResource = this.authenticateResource.bind(this);
+  }
+
+  componentDidMount() {
+    const authToken = localStorage.getItem("Authorization");
+
+    if (authToken) {
+      const url =
+        process.env.REACT_APP_RAILS_API_URL + "/managers/authenticate.json";
+      const options = {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json; charset=UTF-8",
+          Authorization: authToken,
+        },
+      };
+
+      this.attemptAutoLogin(url, options);
+    }
+  }
+
+  // attempt for auto-login if already authenticated
+  async attemptAutoLogin(url, options) {
+    const response = await fetch(url, options);
+    if (response.ok) this.props.history.push("/dashboard");
   }
 
   // single inputChange method to handle multiple input change
