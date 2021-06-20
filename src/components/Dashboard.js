@@ -1,21 +1,22 @@
 import { Component } from "react";
-import { Redirect } from "react-router";
+import { withRouter } from "react-router-dom";
+import isAuthenticated from "../helper/authenticate";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
   }
 
-  render() {
-    const authToken = localStorage.getItem("Authorization");
-
-    if (authToken) {
-      // authenticated logic
-    } else {
-      return <Redirect to="/login" />;
+  async componentDidMount() {
+    if (!(await isAuthenticated())) {
+      this.props.history.replace("/login");
+      return;
     }
-    return "";
+  }
+
+  render() {
+    return <div></div>;
   }
 }
 
-export default Dashboard;
+export default withRouter(Dashboard);
