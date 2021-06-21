@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import isAuthenticated from "../helper/authenticate";
 
 class Dashboard extends Component {
@@ -60,6 +60,9 @@ class Dashboard extends Component {
       return (
         <div>
           <h1>Employees ({this.state.employees.length})</h1>
+          <Link to="/addEmployee">
+            <div>Add Employee</div>
+          </Link>
           <ul>{listOfEmployee}</ul>
         </div>
       );
