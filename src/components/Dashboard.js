@@ -8,6 +8,7 @@ class Dashboard extends Component {
     this.state = { loading: true };
 
     this.fetchEmployees = this.fetchEmployees.bind(this);
+    this.deleteEmployee = this.deleteEmployee.bind(this);
   }
 
   // network call followed by authentication
@@ -44,17 +45,58 @@ class Dashboard extends Component {
     }
   }
 
+  // deleteEmployee network call and manipulating list
+  async deleteEmployee(event) {
+    const authToken = localStorage.getItem("Authorization");
+    const url =
+      process.env.REACT_APP_RAILS_API_URL +
+      `/employees/${event.target.id}.json`;
+    const options = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+        Authorization: authToken,
+      },
+    };
+
+    const response = await fetch(url, options);
+    const data = await response.json();
+
+    // employee removal from list
+    if (response.ok) {
+      const newEmployeeList = this.state.employees.filter(
+        (employee) => employee.id != event.target.id
+      );
+      this.setState({ employees: newEmployeeList, infoMessage: data.message });
+    }
+    // displaying error message
+    else {
+      this.setState({ errorMessage: data.message });
+    }
+  }
+
   render() {
     if (this.state.loading) {
       return <div>Loading...</div>;
     } else if (this.state.responseError) {
       return <div className="error">{this.state.responseError}</div>;
     } else {
-      const listOfEmployee = [];
-      const employees = this.state.employees;
+      let listOfEmployee = [];
 
-      for (let i = 0; i < employees.length; i++) {
-        listOfEmployee.push(<li key={i}>{employees[i].name}</li>);
+      // rendering List of Employee
+      for (const employee of this.state.employees) {
+        listOfEmployee.push(
+          <li key={employee.id}>
+            {employee.name}{" "}
+            <button
+              key={employee.id}
+              id={employee.id}
+              onClick={this.deleteEmployee}
+            >
+              Delete
+            </button>
+          </li>
+        );
       }
 
       return (
@@ -63,6 +105,8 @@ class Dashboard extends Component {
           <Link to="/addEmployee">
             <div>Add Employee</div>
           </Link>
+          <div className="info">{this.state.infoMessage}</div>
+          <div className="error">{this.state.errorMessage}</div>
           <ul>{listOfEmployee}</ul>
         </div>
       );
