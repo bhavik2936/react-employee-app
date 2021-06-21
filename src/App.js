@@ -4,6 +4,7 @@ import "./App.css";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import AddEmployee from "./components/AddEmployee";
+import ViewEmployee from "./components/ViewEmployee";
 
 class App extends Component {
   render() {
@@ -19,6 +20,9 @@ class App extends Component {
             </Route>
             <Route path="/addEmployee">
               <AddEmployee />
+            </Route>
+            <Route path="/viewEmployee">
+              <ViewEmployee />
             </Route>
           </Switch>
         </Router>

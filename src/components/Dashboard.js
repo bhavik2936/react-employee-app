@@ -87,7 +87,9 @@ class Dashboard extends Component {
       for (const employee of this.state.employees) {
         listOfEmployee.push(
           <li key={employee.id}>
-            {employee.name}{" "}
+            <Link to={{ pathname: "/viewEmployee", employee: employee.id }}>
+              {employee.name}{" "}
+            </Link>
             <button
               key={employee.id}
               id={employee.id}
