@@ -2,6 +2,7 @@ import { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
+import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import AddEmployee from "./components/AddEmployee";
 import ViewEmployee from "./components/ViewEmployee";
@@ -15,6 +16,9 @@ class App extends Component {
           <Switch>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/Register">
+              <Register />
             </Route>
             <Route path="/dashboard">
               <Dashboard />
