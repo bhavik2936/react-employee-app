@@ -1,10 +1,16 @@
 import { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import "./App.css";
+
+// authentication modules
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
 import ResetPassword from "./components/ResetPassword";
+import ConfirmAccount from "./components/ConfirmAccount";
 import Register from "./components/Register";
+
+// employee manipulation modules
 import Dashboard from "./components/Dashboard";
 import AddEmployee from "./components/AddEmployee";
 import ViewEmployee from "./components/ViewEmployee";
@@ -25,7 +31,10 @@ class App extends Component {
             <Route path="/resetPassword">
               <ResetPassword />
             </Route>
-            <Route path="/Register">
+            <Route path="/confirmAccount">
+              <ConfirmAccount />
+            </Route>
+            <Route path="/register">
               <Register />
             </Route>
             <Route path="/dashboard">
