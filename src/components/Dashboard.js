@@ -1,12 +1,14 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 import isAuthenticated from "../helper/authenticate";
+import tokenInvalidated from "../helper/invalidateToken";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = { loading: true };
 
+    this.logOut = this.logOut.bind(this);
     this.fetchEmployees = this.fetchEmployees.bind(this);
     this.deleteEmployee = this.deleteEmployee.bind(this);
   }
@@ -20,6 +22,11 @@ class Dashboard extends Component {
 
     // fetch data only if authenticated
     this.fetchEmployees();
+  }
+
+  async logOut() {
+    await tokenInvalidated();
+    this.props.history.replace("/login");
   }
 
   async fetchEmployees() {
@@ -109,6 +116,9 @@ class Dashboard extends Component {
       return (
         <div>
           <h1>Employees ({this.state.employees.length})</h1>
+          <div>
+            <button onClick={this.logOut}>Log Out</button>
+          </div>
           <Link to="/addEmployee">
             <div>Add Employee</div>
           </Link>
