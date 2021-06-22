@@ -2,6 +2,8 @@ import { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
+import ResetPassword from "./components/ResetPassword";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
 import AddEmployee from "./components/AddEmployee";
@@ -16,6 +18,12 @@ class App extends Component {
           <Switch>
             <Route path="/login">
               <Login />
+            </Route>
+            <Route path="/forgotPassword">
+              <ForgotPassword />
+            </Route>
+            <Route path="/resetPassword">
+              <ResetPassword />
             </Route>
             <Route path="/Register">
               <Register />
