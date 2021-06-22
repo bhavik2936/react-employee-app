@@ -90,6 +90,11 @@ class Dashboard extends Component {
             <Link to={{ pathname: "/viewEmployee", employee: employee.id }}>
               {employee.name}{" "}
             </Link>
+            <Link to={{ pathname: "editEmployee", employee: employee.id }}>
+              <button key={employee.id} id={employee.id}>
+                Edit
+              </button>
+            </Link>
             <button
               key={employee.id}
               id={employee.id}

@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 class ViewEmployee extends Component {
   constructor(props) {
@@ -50,6 +50,9 @@ class ViewEmployee extends Component {
     if (this.state.loading) {
       return <div>Loading...</div>;
     } else {
+      // destructuring employee id
+      const { employee } = this.props.location;
+
       return (
         <div>
           <h1>View Employee</h1>
@@ -57,7 +60,11 @@ class ViewEmployee extends Component {
           <div>Experience: {this.state.employee.experience} yrs.</div>
           <div>Salary: ₹ ${this.state.employee.salary}</div>
           <button onClick={this.props.history.goBack}>Go Back</button>
-          <button>Edit</button>
+          <Link to={{ pathname: "editEmployee", employee: employee }}>
+            <button key={employee} id={employee}>
+              Edit
+            </button>
+          </Link>
         </div>
       );
     }

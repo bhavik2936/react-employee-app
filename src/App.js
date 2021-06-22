@@ -5,6 +5,7 @@ import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
 import AddEmployee from "./components/AddEmployee";
 import ViewEmployee from "./components/ViewEmployee";
+import EditEmployee from "./components/EditEmployee";
 
 class App extends Component {
   render() {
@@ -23,6 +24,9 @@ class App extends Component {
             </Route>
             <Route path="/viewEmployee">
               <ViewEmployee />
+            </Route>
+            <Route path="/editEmployee">
+              <EditEmployee />
             </Route>
           </Switch>
         </Router>
