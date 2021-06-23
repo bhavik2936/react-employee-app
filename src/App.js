@@ -4,25 +4,25 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./App.css";
 
 // authentication modules
-import Login from "./components/Login";
-import ForgotPassword from "./components/ForgotPassword";
-import ResetPassword from "./components/ResetPassword";
-import ConfirmAccount from "./components/ConfirmAccount";
-import Register from "./components/Register";
+import Login from "./components/authentication/Login";
+import ForgotPassword from "./components/authentication/ForgotPassword";
+import ResetPassword from "./components/authentication/ResetPassword";
+import ConfirmAccount from "./components/authentication/ConfirmAccount";
+import Register from "./components/authentication/Register";
 
 // manager manipulation modules
-import ViewProfile from "./components/ViewProfile";
-import EditProfile from "./components/EditProfile";
+import ViewProfile from "./components/manager/ViewProfile";
+import EditProfile from "./components/manager/EditProfile";
 
 // employee manipulation modules
-import Dashboard from "./components/Dashboard";
-import AddEmployee from "./components/AddEmployee";
-import ViewEmployee from "./components/ViewEmployee";
-import EditEmployee from "./components/EditEmployee";
+import Dashboard from "./components/employee/Dashboard";
+import AddEmployee from "./components/employee/AddEmployee";
+import ViewEmployee from "./components/employee/ViewEmployee";
+import EditEmployee from "./components/employee/EditEmployee";
 
 // mics routing modules
-import LandingPage from "./components/LandingPage";
-import NotFound from "./components/NotFound";
+import LandingPage from "./components/misc/LandingPage";
+import NotFound from "./components/misc/NotFound";
 
 class App extends Component {
   render() {

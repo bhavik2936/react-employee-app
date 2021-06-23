@@ -1,7 +1,6 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
-import "./Login.css";
-import isAuthenticated from "../helper/authenticate";
+import isAuthenticated from "../../helper/authenticate";
 
 class Login extends Component {
   constructor(props) {

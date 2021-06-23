@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
-import isAuthenticated from "../helper/authenticate";
-import tokenInvalidated from "../helper/invalidateToken";
+import isAuthenticated from "../../helper/authenticate";
+import tokenInvalidated from "../../helper/invalidateToken";
 
 class Dashboard extends Component {
   constructor(props) {
