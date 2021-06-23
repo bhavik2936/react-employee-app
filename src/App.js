@@ -20,6 +20,9 @@ import AddEmployee from "./components/AddEmployee";
 import ViewEmployee from "./components/ViewEmployee";
 import EditEmployee from "./components/EditEmployee";
 
+// mics routing modules
+import LandingPage from "./components/LandingPage";
+
 class App extends Component {
   render() {
     return (
@@ -58,6 +61,9 @@ class App extends Component {
             </Route>
             <Route path="/editEmployee">
               <EditEmployee />
+            </Route>
+            <Route path="/">
+              <LandingPage />
             </Route>
           </Switch>
         </Router>
