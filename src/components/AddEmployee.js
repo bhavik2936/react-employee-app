@@ -11,8 +11,17 @@ class AddEmployee extends Component {
     this.addEmployee = this.addEmployee.bind(this);
   }
 
+  // checking for token
   componentDidMount() {
     document.title = "Add Employee";
+
+    const authToken = localStorage.getItem("Authorization");
+
+    if (authToken) {
+      this.getManagerDetails(authToken);
+    } else {
+      this.props.history.replace("/dashboard");
+    }
   }
 
   handleSubmit(event) {
@@ -50,7 +59,7 @@ class AddEmployee extends Component {
 
     // redirect to dashboard after displaying message
     if (response.ok) {
-      this.setState({ infoMessage: responseData.message });
+      this.setState({ infoMessage: responseData.message, errorMessage: "" });
 
       setTimeout(() => {
         this.props.history.goBack();
@@ -58,7 +67,7 @@ class AddEmployee extends Component {
     }
     // display error message
     else {
-      this.setState({ errorMessage: responseData.message });
+      this.setState({ errorMessage: responseData.message, infoMessage: "" });
 
       const btnSubmit = document.querySelector("form button[type='submit']");
       btnSubmit.disabled = false;

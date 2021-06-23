@@ -12,7 +12,7 @@ class EditEmployee extends Component {
   }
 
   // collecting tokens
-  async componentDidMount() {
+  componentDidMount() {
     document.title = "Edit Employee";
 
     const authToken = localStorage.getItem("Authorization");
@@ -57,6 +57,10 @@ class EditEmployee extends Component {
   }
 
   handleSubmit() {
+    // disable submit button
+    const btnSubmit = document.querySelector("form button[type='submit']");
+    btnSubmit.disabled = true;
+
     const employee = this.props.location.employee;
     const url =
       process.env.REACT_APP_RAILS_API_URL + `/employees/${employee}.json`;

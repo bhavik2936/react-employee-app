@@ -18,7 +18,7 @@ class Login extends Component {
 
     // attempt for auto-login if already authenticated
     if (await isAuthenticated()) {
-      this.props.history.push("/dashboard");
+      this.props.history.replace("/dashboard");
       return;
     }
   }
