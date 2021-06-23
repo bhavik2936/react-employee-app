@@ -10,6 +10,10 @@ import ResetPassword from "./components/ResetPassword";
 import ConfirmAccount from "./components/ConfirmAccount";
 import Register from "./components/Register";
 
+// manager manipulation modules
+import ViewProfile from "./components/ViewProfile";
+import EditProfile from "./components/EditProfile";
+
 // employee manipulation modules
 import Dashboard from "./components/Dashboard";
 import AddEmployee from "./components/AddEmployee";
@@ -36,6 +40,12 @@ class App extends Component {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/viewProfile">
+              <ViewProfile />
+            </Route>
+            <Route path="/editProfile">
+              <EditProfile />
             </Route>
             <Route path="/dashboard">
               <Dashboard />
