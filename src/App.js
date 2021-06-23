@@ -22,6 +22,7 @@ import EditEmployee from "./components/EditEmployee";
 
 // mics routing modules
 import LandingPage from "./components/LandingPage";
+import NotFound from "./components/NotFound";
 
 class App extends Component {
   render() {
@@ -62,8 +63,11 @@ class App extends Component {
             <Route path="/editEmployee">
               <EditEmployee />
             </Route>
-            <Route path="/">
+            <Route exact path="/">
               <LandingPage />
+            </Route>
+            <Route>
+              <NotFound />
             </Route>
           </Switch>
         </Router>
