@@ -11,6 +11,10 @@ class Register extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentDidMount() {
+    document.title = "Register";
+  }
+
   handleSubmit() {
     // disable submit button
     const btnSubmit = document.querySelector("form button[type='submit']");

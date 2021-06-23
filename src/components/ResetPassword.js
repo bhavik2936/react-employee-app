@@ -12,6 +12,8 @@ class ResetPassword extends Component {
   }
 
   componentDidMount() {
+    document.title = "Reset Password";
+
     const queryParams = new URLSearchParams(this.props.location.search);
     const resetPasswordToken = queryParams.get("reset_password_token");
 

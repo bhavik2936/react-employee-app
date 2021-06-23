@@ -14,6 +14,8 @@ class EditProfile extends Component {
 
   // checking for token
   componentDidMount() {
+    document.title = "Edit Profile";
+
     const authToken = localStorage.getItem("Authorization");
 
     if (authToken) {

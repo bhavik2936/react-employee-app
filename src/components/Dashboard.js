@@ -15,6 +15,8 @@ class Dashboard extends Component {
 
   // network call followed by authentication
   async componentDidMount() {
+    document.title = "Dashboard | Employee Management";
+
     if (!(await isAuthenticated())) {
       this.props.history.replace("/login");
       return;

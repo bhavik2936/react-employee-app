@@ -10,6 +10,10 @@ class ForgotPassword extends Component {
     this.requestResetPasswordLink = this.requestResetPasswordLink.bind(this);
   }
 
+  componentDidMount() {
+    document.title = "Forgot Password";
+  }
+
   // single inputChange method to handle multiple input change
   handleInputChange(event) {
     const value = event.target.value;

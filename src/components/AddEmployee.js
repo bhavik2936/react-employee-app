@@ -11,6 +11,10 @@ class AddEmployee extends Component {
     this.addEmployee = this.addEmployee.bind(this);
   }
 
+  componentDidMount() {
+    document.title = "Add Employee";
+  }
+
   handleSubmit(event) {
     // disable submit button
     const btnSubmit = document.querySelector("form button[type='submit']");

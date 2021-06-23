@@ -11,6 +11,8 @@ class ViewEmployee extends Component {
 
   // collecting tokens
   async componentDidMount() {
+    document.title = "View Employee";
+
     const authToken = localStorage.getItem("Authorization");
     const employee = this.props.location.employee;
 

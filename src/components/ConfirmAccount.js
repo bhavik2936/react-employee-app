@@ -12,6 +12,8 @@ class ConfirmAccount extends Component {
   }
 
   componentDidMount() {
+    document.title = "Confirm Account";
+
     const queryParams = new URLSearchParams(this.props.location.search);
     const confirmationToken = queryParams.get("confirmation_token");
 

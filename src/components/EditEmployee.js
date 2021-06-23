@@ -13,6 +13,8 @@ class EditEmployee extends Component {
 
   // collecting tokens
   async componentDidMount() {
+    document.title = "Edit Employee";
+
     const authToken = localStorage.getItem("Authorization");
     const employee = this.props.location.employee;
 

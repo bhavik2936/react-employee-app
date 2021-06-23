@@ -14,6 +14,8 @@ class Login extends Component {
   }
 
   async componentDidMount() {
+    document.title = "Login";
+
     // attempt for auto-login if already authenticated
     if (await isAuthenticated()) {
       this.props.history.push("/dashboard");

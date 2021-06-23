@@ -11,6 +11,8 @@ class ViewProfile extends Component {
 
   // checking for token
   componentDidMount() {
+    document.title = "View Profile";
+
     const authToken = localStorage.getItem("Authorization");
 
     if (authToken) {
