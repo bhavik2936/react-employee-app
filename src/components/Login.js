@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import "./Login.css";
 import isAuthenticated from "../helper/authenticate";
 
@@ -80,22 +80,37 @@ class Login extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="error">{this.state.errorMessage}</div>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="error">{this.state.errorMessage}</div>
+          <div>
+            <input
+              type="email"
+              name="email"
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div>
+            <input
+              type="password"
+              name="password"
+              onChange={this.handleInputChange}
+            />
+          </div>
+          <div>
+            <Link to="/forgotPassword">Forgot your password?</Link>
+          </div>
+          <div>
+            <button type="submit">Login</button>
+          </div>
+        </form>
         <div>
-          <input type="email" name="email" onChange={this.handleInputChange} />
+          <div>Don&apos;t have an manager account?</div>
+          <div>
+            <Link to="/register">Sign Up</Link>
+          </div>
         </div>
-        <div>
-          <input
-            type="password"
-            name="password"
-            onChange={this.handleInputChange}
-          />
-        </div>
-        <div>
-          <button type="submit">Login</button>
-        </div>
-      </form>
+      </div>
     );
   }
 }

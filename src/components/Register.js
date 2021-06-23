@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 class Register extends Component {
   constructor(props) {
@@ -72,49 +72,58 @@ class Register extends Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="info">{this.state.infoMessage}</div>
-        <div className="error">{this.state.errorMessage}</div>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <div className="info">{this.state.infoMessage}</div>
+          <div className="error">{this.state.errorMessage}</div>
+          <div>
+            <label>
+              Name
+              <input
+                type="text"
+                name="name"
+                onChange={this.handleInputChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Email
+              <input
+                type="email"
+                name="email"
+                onChange={this.handleInputChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Password
+              <input
+                type="password"
+                name="password"
+                onChange={this.handleInputChange}
+              />
+            </label>
+          </div>
+          <div>
+            <label>
+              Confirm Password
+              <input
+                type="password"
+                name="password_confirmation"
+                onChange={this.handleInputChange}
+              />
+            </label>
+          </div>
+          <div>
+            <button type="submit">Register</button>
+          </div>
+        </form>
         <div>
-          <label>
-            Name
-            <input type="text" name="name" onChange={this.handleInputChange} />
-          </label>
+          Have an account? <Link to="login">Log in</Link>.
         </div>
-        <div>
-          <label>
-            Email
-            <input
-              type="email"
-              name="email"
-              onChange={this.handleInputChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Password
-            <input
-              type="password"
-              name="password"
-              onChange={this.handleInputChange}
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Confirm Password
-            <input
-              type="password"
-              name="password_confirmation"
-              onChange={this.handleInputChange}
-            />
-          </label>
-        </div>
-        <div>
-          <button type="submit">Register</button>
-        </div>
-      </form>
+      </div>
     );
   }
 }
