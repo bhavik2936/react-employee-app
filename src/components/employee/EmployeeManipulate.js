@@ -9,9 +9,16 @@ class EmployeeManipulate extends Component {
   render() {
     const employee = this.props.employee;
     const deleteEmployee = this.props.onDelete;
+    const toggleCheckbox = this.props.onToggleCheck;
 
     return (
-      <li>
+      <div>
+        <input
+          type="checkbox"
+          id={employee.id}
+          name="employee"
+          onChange={toggleCheckbox}
+        />
         <Link to={{ pathname: "/viewEmployee", employee: employee.id }}>
           {employee.name}
         </Link>
@@ -19,7 +26,7 @@ class EmployeeManipulate extends Component {
           <button>Edit</button>
         </Link>
         <button onClick={() => deleteEmployee(employee)}>Delete</button>
-      </li>
+      </div>
     );
   }
 }

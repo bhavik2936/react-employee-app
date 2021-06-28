@@ -9,11 +9,14 @@ import tokenInvalidated from "../../helper/invalidateToken";
 class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
+    this.state = { loading: true, masterCheckboxVisibility: false };
 
     this.logOut = this.logOut.bind(this);
     this.fetchEmployees = this.fetchEmployees.bind(this);
     this.deleteEmployee = this.deleteEmployee.bind(this);
+    this.slaveCheckboxChanged = this.slaveCheckboxChanged.bind(this);
+    this.masterCheckboxChanged = this.masterCheckboxChanged.bind(this);
+    this.deleteSelectedEmployees = this.deleteSelectedEmployees.bind(this);
   }
 
   // network call followed by authentication
@@ -89,6 +92,57 @@ class Dashboard extends Component {
     }
   }
 
+  // if master checkbox is toggled
+  // toggle all the checkboxes
+  masterCheckboxChanged(event) {
+    const isChecked = event.target.checked;
+
+    const listOfCheckboxes = document.querySelectorAll(
+      "input[name='employee']"
+    );
+
+    [...listOfCheckboxes].map((checkbox) => {
+      checkbox.checked = isChecked;
+    });
+
+    // make delete button visible
+    // if master checkbox is checked
+    this.setState({ masterCheckboxVisibility: isChecked });
+  }
+
+  // change checked status of master checkbox
+  // based on status of slave checkboxes
+  slaveCheckboxChanged() {
+    const allCheckboxesLength = document.querySelectorAll(
+      "input[name='employee']"
+    ).length;
+    const checkedCheckboxesLength = document.querySelectorAll(
+      "input[name='employee']:checked"
+    ).length;
+
+    let masterCheckbox = document.querySelector("input[name='all']");
+    masterCheckbox.checked = allCheckboxesLength === checkedCheckboxesLength;
+
+    // make button visible if any checkbox is checked
+    this.setState({
+      masterCheckboxVisibility: Boolean(checkedCheckboxesLength),
+    });
+  }
+
+  // delete selected employees
+  deleteSelectedEmployees() {
+    const checkedCheckboxes = document.querySelectorAll(
+      "input[name='employee']:checked"
+    );
+    const employeesToDelete = [...checkedCheckboxes].map((selectedCheckbox) => {
+      return { id: selectedCheckbox.id };
+    });
+
+    for (const employee of employeesToDelete) {
+      this.deleteEmployee(employee);
+    }
+  }
+
   render() {
     if (this.state.loading) {
       return <div>Loading...</div>;
@@ -104,6 +158,7 @@ class Dashboard extends Component {
             key={employee.id}
             employee={employee}
             onDelete={this.deleteEmployee}
+            onToggleCheck={this.slaveCheckboxChanged}
           />
         );
       }
@@ -117,9 +172,25 @@ class Dashboard extends Component {
           <Link to="/addEmployee">
             <div>Add Employee</div>
           </Link>
+
           <div className="info">{this.state.infoMessage}</div>
           <div className="error">{this.state.errorMessage}</div>
-          <ul>{listOfEmployee}</ul>
+
+          <div>
+            <input
+              type="checkbox"
+              name="all"
+              onChange={this.masterCheckboxChanged}
+            />
+            {this.state.masterCheckboxVisibility ? (
+              <button onClick={this.deleteSelectedEmployees}>
+                Delete Selected Employees
+              </button>
+            ) : (
+              ""
+            )}
+          </div>
+          <div>{listOfEmployee}</div>
         </div>
       );
     }
