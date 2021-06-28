@@ -23,12 +23,14 @@ import EditEmployee from "./components/employee/EditEmployee";
 // mics routing modules
 import LandingPage from "./components/misc/LandingPage";
 import NotFound from "./components/misc/NotFound";
+import NavigationBar from "./components/misc/NavigationBar";
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <>
         <Router>
+          <NavigationBar />
           <Switch>
             <Route path="/login">
               <Login />
@@ -71,7 +73,7 @@ class App extends Component {
             </Route>
           </Switch>
         </Router>
-      </div>
+      </>
     );
   }
 }
