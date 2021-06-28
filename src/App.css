@@ -1,0 +1,14 @@
+.loader {
+  min-height: 85vh;
+}
+
+.loader-ref {
+  color: #61dafb;
+  text-decoration: none;
+}
+
+.loader-ref:hover {
+  color: #a3a3a3;
+  text-decoration: none;
+  cursor: pointer;
+}
