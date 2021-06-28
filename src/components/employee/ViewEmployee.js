@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 
+import isAuthenticated from "../../helper/authenticate";
+
 class ViewEmployee extends Component {
   constructor(props) {
     super(props);
@@ -10,21 +12,21 @@ class ViewEmployee extends Component {
   }
 
   // collecting tokens
-  componentDidMount() {
+  async componentDidMount() {
     document.title = "View Employee";
 
-    const authToken = localStorage.getItem("Authorization");
     const employee = this.props.location.employee;
 
-    if (authToken && employee) {
-      this.getEmployeeDetails(authToken, employee);
+    if ((await isAuthenticated(false)) && employee) {
+      this.getEmployeeDetails(employee);
     } else {
       this.props.history.replace("/dashboard");
     }
   }
 
   // network call to fetch employee details
-  async getEmployeeDetails(authToken, employee) {
+  async getEmployeeDetails(employee) {
+    const authToken = localStorage.getItem("Authorization");
     const url =
       process.env.REACT_APP_RAILS_API_URL + `/employees/${employee}.json`;
     const options = {

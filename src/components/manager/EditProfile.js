@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
 
+import isAuthenticated from "../../helper/authenticate";
+
 class EditProfile extends Component {
   constructor(props) {
     super(props);
@@ -13,20 +15,19 @@ class EditProfile extends Component {
   }
 
   // checking for token
-  componentDidMount() {
+  async componentDidMount() {
     document.title = "Edit Profile";
 
-    const authToken = localStorage.getItem("Authorization");
-
-    if (authToken) {
-      this.getManagerDetails(authToken);
+    if (await isAuthenticated(false)) {
+      this.getManagerDetails();
     } else {
       this.props.history.replace("/dashboard");
     }
   }
 
   // network call to fetch manager details
-  async getManagerDetails(authToken) {
+  async getManagerDetails() {
+    const authToken = localStorage.getItem("Authorization");
     const url = process.env.REACT_APP_RAILS_API_URL + `/managers/show.json`;
     const options = {
       headers: {

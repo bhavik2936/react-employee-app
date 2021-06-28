@@ -23,7 +23,7 @@ class Dashboard extends Component {
   async componentDidMount() {
     document.title = "Dashboard | Employee Management";
 
-    if (!(await isAuthenticated())) {
+    if (!(await isAuthenticated(true))) {
       this.props.history.replace("/login");
       return;
     }

@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 
+import isAuthenticated from "../../helper/authenticate";
+
 class ViewProfile extends Component {
   constructor(props) {
     super(props);
@@ -10,20 +12,19 @@ class ViewProfile extends Component {
   }
 
   // checking for token
-  componentDidMount() {
+  async componentDidMount() {
     document.title = "View Profile";
 
-    const authToken = localStorage.getItem("Authorization");
-
-    if (authToken) {
-      this.getCurrentManagerDetails(authToken);
+    if (await isAuthenticated(false)) {
+      this.getCurrentManagerDetails();
     } else {
       this.props.history.replace("/login");
     }
   }
 
   // network call to fetch manager details
-  async getCurrentManagerDetails(authToken) {
+  async getCurrentManagerDetails() {
+    const authToken = localStorage.getItem("Authorization");
     const url = process.env.REACT_APP_RAILS_API_URL + `/managers/show.json`;
     const options = {
       headers: {
