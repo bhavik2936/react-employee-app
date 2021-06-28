@@ -1,5 +1,8 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
+
+import EmployeeManipulate from "./EmployeeManipulate";
+
 import isAuthenticated from "../../helper/authenticate";
 import tokenInvalidated from "../../helper/invalidateToken";
 
@@ -26,11 +29,13 @@ class Dashboard extends Component {
     this.fetchEmployees();
   }
 
+  // call to logOut
   async logOut() {
     await tokenInvalidated();
     this.props.history.replace("/login");
   }
 
+  // fetch list of employees working under current_manager
   async fetchEmployees() {
     const authToken = localStorage.getItem("Authorization");
     const url = process.env.REACT_APP_RAILS_API_URL + "/employees.json";
@@ -55,11 +60,11 @@ class Dashboard extends Component {
   }
 
   // deleteEmployee network call and manipulating list
-  async deleteEmployee(event) {
+  async deleteEmployee(employeeToDelete) {
     const authToken = localStorage.getItem("Authorization");
     const url =
       process.env.REACT_APP_RAILS_API_URL +
-      `/employees/${event.target.id}.json`;
+      `/employees/${employeeToDelete.id}.json`;
     const options = {
       method: "DELETE",
       headers: {
@@ -74,7 +79,7 @@ class Dashboard extends Component {
     // employee removal from list
     if (response.ok) {
       const newEmployeeList = this.state.employees.filter(
-        (employee) => employee.id != event.target.id
+        (employee) => employee.id != employeeToDelete.id
       );
       this.setState({ employees: newEmployeeList, infoMessage: data.message });
     }
@@ -95,23 +100,11 @@ class Dashboard extends Component {
       // rendering List of Employee
       for (const employee of this.state.employees) {
         listOfEmployee.push(
-          <li key={employee.id}>
-            <Link to={{ pathname: "/viewEmployee", employee: employee.id }}>
-              {employee.name}{" "}
-            </Link>
-            <Link to={{ pathname: "editEmployee", employee: employee.id }}>
-              <button key={employee.id} id={employee.id}>
-                Edit
-              </button>
-            </Link>
-            <button
-              key={employee.id}
-              id={employee.id}
-              onClick={this.deleteEmployee}
-            >
-              Delete
-            </button>
-          </li>
+          <EmployeeManipulate
+            key={employee.id}
+            employee={employee}
+            onDelete={this.deleteEmployee}
+          />
         );
       }
 
