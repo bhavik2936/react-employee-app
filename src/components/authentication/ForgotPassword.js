@@ -1,4 +1,15 @@
 import { Component } from "react";
+import {
+  Container,
+  Row,
+  Col,
+  UncontrolledAlert,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Button,
+} from "reactstrap";
 
 class ForgotPassword extends Component {
   constructor(props) {
@@ -61,25 +72,39 @@ class ForgotPassword extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Forgot Password</h1>
-        <div className="info">{this.state.infoMessage}</div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>
-              Email
-              <input
-                type="email"
-                name="email"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <button type="submit">Send Instructions</button>
-          </div>
-        </form>
-      </div>
+      <Container>
+        <Row>
+          <Col xs="11" md="9" className="mx-auto my-3">
+            <Row className="mx-auto">
+              <div className="h3 text-center mx-auto">Frogot Password ?</div>
+            </Row>
+            {this.state.infoMessage && (
+              <UncontrolledAlert color="info">
+                {this.state.infoMessage}
+              </UncontrolledAlert>
+            )}
+            <Row>
+              <Col md="9" className="mx-auto">
+                <Form onSubmit={this.handleSubmit}>
+                  <FormGroup>
+                    <Label className="w-100 mx-auto">
+                      Email
+                      <Input
+                        type="email"
+                        name="email"
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup className="text-center">
+                    <Button type="submit">Send Instructions</Button>
+                  </FormGroup>
+                </Form>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

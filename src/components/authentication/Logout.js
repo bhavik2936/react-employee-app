@@ -2,6 +2,7 @@ import { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import tokenInvalidated from "../../helper/invalidateToken";
+import Loader from "../misc/Loader";
 
 class Logout extends Component {
   constructor(props) {
@@ -16,7 +17,7 @@ class Logout extends Component {
   }
 
   render() {
-    return null;
+    return <Loader />;
   }
 }
 

@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
+import { Container, Row, Col, Input, UncontrolledAlert } from "reactstrap";
 
 import EmployeeManipulate from "./EmployeeManipulate";
 
@@ -140,7 +141,21 @@ class Dashboard extends Component {
     if (this.state.loading) {
       return <Loader />;
     } else if (this.state.responseError) {
-      return <div className="error">{this.state.responseError}</div>;
+      return (
+        <Container>
+          <Row>
+            <Col xs="11" md="9" className="mx-auto my-3">
+              <Row>
+                <Col md="9" className="mx-auto">
+                  <UncontrolledAlert color="danger">
+                    {this.state.responseError}
+                  </UncontrolledAlert>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      );
     } else {
       let listOfEmployee = [];
 
@@ -157,31 +172,63 @@ class Dashboard extends Component {
       }
 
       return (
-        <div>
-          <h1>Employees ({this.state.employees.length})</h1>
-          <Link to="/addEmployee">
-            <div>Add Employee</div>
-          </Link>
-
-          <div className="info">{this.state.infoMessage}</div>
-          <div className="error">{this.state.errorMessage}</div>
-
-          <div>
-            <input
-              type="checkbox"
-              name="all"
-              onChange={this.masterCheckboxChanged}
-            />
-            {this.state.masterCheckboxVisibility ? (
-              <button onClick={this.deleteSelectedEmployees}>
-                Delete Selected Employees
-              </button>
-            ) : (
-              ""
-            )}
-          </div>
-          <div>{listOfEmployee}</div>
-        </div>
+        <Container>
+          <Row>
+            <Col xs="11" md="9" className="mx-auto my-3">
+              <Row className="mx-auto">
+                <div className="h3 text-center mx-auto">
+                  Employees (
+                  <Link to="/addEmployee" className="h6 link my-auto">
+                    <i className="fas fa-user-plus" />
+                  </Link>
+                  )
+                </div>
+              </Row>
+              <Row>
+                <Col xs="12">
+                  <div className="h6 small text-center">
+                    There are currently {this.state.employees.length} employees
+                    working under your guidance.{" "}
+                  </div>
+                </Col>
+              </Row>
+              {this.state.infoMessage && (
+                <UncontrolledAlert color="info">
+                  {this.state.infoMessage}
+                </UncontrolledAlert>
+              )}
+              {this.state.errorMessage && (
+                <UncontrolledAlert color="danger">
+                  {this.state.errorMessage}
+                </UncontrolledAlert>
+              )}
+              <Row className="py-2">
+                <Col xs="2" className="text-center">
+                  <Input
+                    type="checkbox"
+                    name="all"
+                    className="position-static mx-auto align-middle"
+                    onChange={this.masterCheckboxChanged}
+                  />
+                </Col>
+                <Col xs="2" className="text-center">
+                  {this.state.masterCheckboxVisibility ? (
+                    <div
+                      role="button"
+                      className="link"
+                      tabIndex={0}
+                      onKeyPress={this.deleteSelectedEmployees}
+                      onClick={this.deleteSelectedEmployees}
+                    >
+                      <i className="far fa-trash-alt" />
+                    </div>
+                  ) : null}
+                </Col>
+              </Row>
+              {listOfEmployee}
+            </Col>
+          </Row>
+        </Container>
       );
     }
   }

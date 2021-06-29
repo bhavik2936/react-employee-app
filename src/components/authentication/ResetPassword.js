@@ -1,5 +1,16 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  UncontrolledAlert,
+  Form,
+  FormGroup,
+  Input,
+  Label,
+  Button,
+} from "reactstrap";
 
 class ResetPassword extends Component {
   constructor(props) {
@@ -92,34 +103,54 @@ class ResetPassword extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Reset Password</h1>
-        <div className="info">{this.state.infoMessage}</div>
-        <div className="error">{this.state.errorMessage}</div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>
-              Password
-              <input
-                type="password"
-                name="password"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Confirm Password
-              <input
-                type="password"
-                name="password_confirmation"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <button type="submit">Reset Password</button>
-        </form>
-      </div>
+      <Container>
+        <Row>
+          <Col xs="11" md="9" className="mx-auto my-3">
+            <Row className="mx-auto">
+              <div className="h3 text-center mx-auto">Reset Password</div>
+            </Row>
+            {this.state.infoMessage && (
+              <UncontrolledAlert color="info">
+                {this.state.infoMessage}
+              </UncontrolledAlert>
+            )}
+            {this.state.errorMessage && (
+              <UncontrolledAlert color="info">
+                {this.state.errorMessage}
+              </UncontrolledAlert>
+            )}
+            <Row>
+              <Col md="9" className="mx-auto">
+                <Form onSubmit={this.handleSubmit}>
+                  <FormGroup>
+                    <Label className="w-100 mx-auto">
+                      New Password
+                      <Input
+                        type="password"
+                        name="password"
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label className="w-100 mx-auto">
+                      Confirm New Password
+                      <Input
+                        type="password"
+                        name="password_confirmation"
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup className="text-center">
+                    <Button type="submit">Reset Password</Button>
+                  </FormGroup>
+                </Form>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

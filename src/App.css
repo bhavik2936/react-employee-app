@@ -2,13 +2,19 @@
   min-height: 85vh;
 }
 
-.loader-ref {
+.loader-ref,
+.link {
   color: #61dafb;
   text-decoration: none;
 }
 
-.loader-ref:hover {
+.loader-ref:hover,
+.link:hover {
   color: #a3a3a3;
   text-decoration: none;
   cursor: pointer;
+}
+
+hr {
+  border-top-color: #9a9a9a !important;
 }

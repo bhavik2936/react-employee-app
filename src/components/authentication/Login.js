@@ -1,5 +1,17 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  UncontrolledAlert,
+  Label,
+  Input,
+  Button,
+} from "reactstrap";
+
 import isAuthenticated from "../../helper/authenticate";
 
 class Login extends Component {
@@ -81,37 +93,65 @@ class Login extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="error">{this.state.errorMessage}</div>
-          <div>
-            <input
-              type="email"
-              name="email"
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div>
-            <input
-              type="password"
-              name="password"
-              onChange={this.handleInputChange}
-            />
-          </div>
-          <div>
-            <Link to="/forgotPassword">Forgot your password?</Link>
-          </div>
-          <div>
-            <button type="submit">Login</button>
-          </div>
-        </form>
-        <div>
-          <div>Don&apos;t have an manager account?</div>
-          <div>
-            <Link to="/register">Sign Up</Link>
-          </div>
-        </div>
-      </div>
+      <Container>
+        <Row>
+          <Col xs="11" md="9" className="mx-auto py-3">
+            <Row className="mx-auto">
+              <div className="h3 text-center mx-auto">Login</div>
+            </Row>
+            <Row>
+              <Col md="9" className="mx-auto">
+                <Form onSubmit={this.handleSubmit}>
+                  {this.state.errorMessage && (
+                    <UncontrolledAlert color="danger">
+                      {this.state.errorMessage}
+                    </UncontrolledAlert>
+                  )}
+                  <FormGroup>
+                    <Label className="w-100 mx-auto">
+                      Email
+                      <Input
+                        type="email"
+                        name="email"
+                        required
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label className="w-100 mx-auto">
+                      Password
+                      <Input
+                        type="password"
+                        name="password"
+                        required
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup>
+                    <Link to="/forgotPassword" className="link">
+                      Forgot your password?
+                    </Link>
+                  </FormGroup>
+                  <FormGroup className="text-center">
+                    <Button type="submit">Login</Button>
+                  </FormGroup>
+                </Form>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="9" className="mx-auto text-center">
+                <hr />
+                <div>Don&apos;t have an manager account?</div>
+                <Link to="/register" className="link">
+                  Sign Up
+                </Link>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

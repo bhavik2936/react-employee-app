@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
 
 import isAuthenticated from "../../helper/authenticate";
 import Loader from "../misc/Loader";
@@ -55,18 +56,53 @@ class ViewProfile extends Component {
       const { name, email } = this.state.manager;
 
       return (
-        <div>
-          <h1>View Profile</h1>
-          <div>
-            <div>Name: {name}</div>
-            <div>Email: {email}</div>
-          </div>
-          <div>
-            <Link to={{ pathname: "/editProfile" }}>
-              <button>Edit Profile</button>
-            </Link>
-          </div>
-        </div>
+        <Container>
+          <Row>
+            <Col xs="11" md="9" className="mx-auto my-3">
+              <Row className="mx-auto">
+                <div className="h3 text-center mx-auto">Profile</div>
+              </Row>
+              <Row className="mt-3">
+                <Col md="9" className="mx-auto">
+                  <Row>
+                    <Col xs="12" md="6">
+                      Name
+                    </Col>
+                    <Col xs="12" md="6">
+                      {name}
+                    </Col>
+                    <Col xs="12">
+                      <hr />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="12" md="6">
+                      Email
+                    </Col>
+                    <Col xs="12" md="6">
+                      {email}
+                    </Col>
+                    <Col xs="12">
+                      <hr />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="6" className="text-center">
+                      <Button onClick={this.props.history.goBack}>
+                        Go Back
+                      </Button>
+                    </Col>
+                    <Col xs="6" className="text-center">
+                      <Link to={{ pathname: "/editProfile" }}>
+                        <Button>Edit Profile</Button>
+                      </Link>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       );
     }
   }
