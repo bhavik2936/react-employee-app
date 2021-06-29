@@ -2,7 +2,7 @@ import { Component } from "react";
 import { Link } from "react-router-dom";
 import {
   Navbar,
-  // NavbarBrand,
+  NavbarBrand,
   NavbarToggler,
   Collapse,
   Nav,
@@ -44,8 +44,12 @@ class NavigationBar extends Component {
               Profile
             </DropdownToggle>
             <DropdownMenu right>
-              <DropdownItem>Account</DropdownItem>
-              <DropdownItem>Log Out</DropdownItem>
+              <DropdownItem to="/viewProfile" tag={Link}>
+                Account
+              </DropdownItem>
+              <DropdownItem to="/logout" tag={Link}>
+                Log Out
+              </DropdownItem>
             </DropdownMenu>
           </UncontrolledDropdown>
         </>
@@ -55,14 +59,14 @@ class NavigationBar extends Component {
       const unAuthenticateModule = (
         <>
           <NavItem>
-            <Link to="/register" className="nav-link">
+            <NavLink to="/register" tag={Link} onClick={this.navbarToggle}>
               Register
-            </Link>
+            </NavLink>
           </NavItem>
           <NavItem>
-            <Link to="/login" className="nav-link">
+            <NavLink to="/login" tag={Link} onClick={this.navbarToggle}>
               Login
-            </Link>
+            </NavLink>
           </NavItem>
         </>
       );
@@ -73,9 +77,9 @@ class NavigationBar extends Component {
   render() {
     return (
       <Navbar dark color="dark" expand="md">
-        <Link to="/" className="navbar-brand">
+        <NavbarBrand to="/" tag={Link}>
           Employee Management App
-        </Link>
+        </NavbarBrand>
         <NavbarToggler onClick={this.navbarToggle} />
         <Collapse isOpen={this.state.isNavbarOpen} navbar>
           <Nav className="ml-auto mr-3" navbar>

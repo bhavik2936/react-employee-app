@@ -9,6 +9,7 @@ import ForgotPassword from "./components/authentication/ForgotPassword";
 import ResetPassword from "./components/authentication/ResetPassword";
 import ConfirmAccount from "./components/authentication/ConfirmAccount";
 import Register from "./components/authentication/Register";
+import Logout from "./components/authentication/Logout";
 
 // manager manipulation modules
 import ViewProfile from "./components/manager/ViewProfile";
@@ -46,6 +47,9 @@ class App extends Component {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/logout">
+              <Logout />
             </Route>
             <Route path="/viewProfile">
               <ViewProfile />
