@@ -1,5 +1,19 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  UncontrolledAlert,
+} from "reactstrap";
+
+import isAuthenticated from "../../helper/authenticate";
+import Loader from "../misc/Loader";
 
 class EditProfile extends Component {
   constructor(props) {
@@ -13,20 +27,19 @@ class EditProfile extends Component {
   }
 
   // checking for token
-  componentDidMount() {
+  async componentDidMount() {
     document.title = "Edit Profile";
 
-    const authToken = localStorage.getItem("Authorization");
-
-    if (authToken) {
-      this.getManagerDetails(authToken);
+    if (await isAuthenticated(false)) {
+      this.getManagerDetails();
     } else {
       this.props.history.replace("/dashboard");
     }
   }
 
   // network call to fetch manager details
-  async getManagerDetails(authToken) {
+  async getManagerDetails() {
+    const authToken = localStorage.getItem("Authorization");
     const url = process.env.REACT_APP_RAILS_API_URL + `/managers/show.json`;
     const options = {
       headers: {
@@ -111,74 +124,102 @@ class EditProfile extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else {
       return (
-        <div>
-          <h1>Edit Profile</h1>
-          <div className="info">{this.state.infoMessage}</div>
-          <div className="error">{this.state.errorMessage}</div>
-          <form onSubmit={this.handleSubmit}>
-            <div>Email: {this.state.email}</div>
-            <div>
-              <div>
-                <h3>Edit Personal Details</h3>
-              </div>
-              <div>
-                <label>
-                  Name:{" "}
-                  <input
-                    type="text"
-                    name="name"
-                    value={this.state.name}
-                    onChange={this.handleInputChange}
-                  />
-                </label>
-              </div>
-            </div>
-            <div>
-              <div>
-                <h3>Change Password</h3>
-              </div>
-              <div>
-                <label>
-                  New Password:{" "}
-                  <input
-                    type="password"
-                    name="password"
-                    onChange={this.handleInputChange}
-                    placeholder="enter only if you want to change"
-                  />
-                </label>
-              </div>
-              <div>
-                <label>
-                  Confirm New Password:{" "}
-                  <input
-                    type="password"
-                    name="password_confirmation"
-                    onChange={this.handleInputChange}
-                    placeholder="enter only if you want to change"
-                  />
-                </label>
-              </div>
-            </div>
-            <div>
-              <label>
-                Current Password:{" "}
-                <input
-                  type="password"
-                  name="current_password"
-                  onChange={this.handleInputChange}
-                  required
-                />
-              </label>
-            </div>
-            <div>
-              <button type="submit">Update Profile</button>
-            </div>
-          </form>
-        </div>
+        <Container>
+          <Row>
+            <Col xs="11" md="9" className="mx-auto my-3">
+              <Row className="mx-auto">
+                <div className="h3 text-center mx-auto">Edit Profile</div>
+              </Row>
+              {this.state.infoMessage && (
+                <UncontrolledAlert color="info">
+                  {this.state.infoMessage}
+                </UncontrolledAlert>
+              )}
+              {this.state.errorMessage && (
+                <UncontrolledAlert color="danger">
+                  {this.state.errorMessage}
+                </UncontrolledAlert>
+              )}
+              <Row>
+                <Col md="9" className="mx-auto">
+                  <Form onSubmit={this.handleSubmit}>
+                    <div className="border rounded p-3 my-3">
+                      <div className="h5 text-center mx-auto">
+                        Edit Personal Details
+                      </div>
+                      <FormGroup>
+                        <Label className="w-100 mx-auto">
+                          Name:{" "}
+                          <Input
+                            type="text"
+                            name="name"
+                            required
+                            value={this.state.name}
+                            onChange={this.handleInputChange}
+                          />
+                        </Label>
+                      </FormGroup>
+                    </div>
+                    <div className="border rounded p-3 my-3">
+                      <div className="h5 text-center mx-auto">
+                        Change Password
+                      </div>
+                      <FormGroup>
+                        <Label className="w-100 mx-auto">
+                          New Password:{" "}
+                          <Input
+                            type="password"
+                            name="password"
+                            onChange={this.handleInputChange}
+                            placeholder="enter only if you want to change"
+                          />
+                        </Label>
+                      </FormGroup>
+                      <FormGroup>
+                        <Label className="w-100 mx-auto">
+                          Confirm New Password:{" "}
+                          <Input
+                            type="password"
+                            name="password_confirmation"
+                            onChange={this.handleInputChange}
+                            placeholder="enter only if you want to change"
+                          />
+                        </Label>
+                      </FormGroup>
+                    </div>
+                    <FormGroup>
+                      <Label className="w-100 mx-auto">
+                        Current Password:{" "}
+                        <Input
+                          type="password"
+                          name="current_password"
+                          required
+                          onChange={this.handleInputChange}
+                        />
+                      </Label>
+                    </FormGroup>
+                    <Row>
+                      <Col xs="6" className="text-center">
+                        <Button
+                          type="button"
+                          onClick={this.props.history.goBack}
+                        >
+                          Go Back
+                        </Button>
+                      </Col>
+                      <Col xs="6" className="text-center">
+                        <Button type="submit">Update Profile</Button>
+                      </Col>
+                    </Row>
+                  </Form>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       );
     }
   }

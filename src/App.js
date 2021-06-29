@@ -2,6 +2,7 @@ import { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./App.css";
+import "./404.css";
 
 // authentication modules
 import Login from "./components/authentication/Login";
@@ -9,6 +10,7 @@ import ForgotPassword from "./components/authentication/ForgotPassword";
 import ResetPassword from "./components/authentication/ResetPassword";
 import ConfirmAccount from "./components/authentication/ConfirmAccount";
 import Register from "./components/authentication/Register";
+import Logout from "./components/authentication/Logout";
 
 // manager manipulation modules
 import ViewProfile from "./components/manager/ViewProfile";
@@ -23,12 +25,14 @@ import EditEmployee from "./components/employee/EditEmployee";
 // mics routing modules
 import LandingPage from "./components/misc/LandingPage";
 import NotFound from "./components/misc/NotFound";
+import NavigationBar from "./components/misc/NavigationBar";
 
 class App extends Component {
   render() {
     return (
-      <div>
+      <>
         <Router>
+          <NavigationBar />
           <Switch>
             <Route path="/login">
               <Login />
@@ -44,6 +48,9 @@ class App extends Component {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/logout">
+              <Logout />
             </Route>
             <Route path="/viewProfile">
               <ViewProfile />
@@ -71,7 +78,7 @@ class App extends Component {
             </Route>
           </Switch>
         </Router>
-      </div>
+      </>
     );
   }
 }

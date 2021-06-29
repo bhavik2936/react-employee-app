@@ -1,5 +1,18 @@
 import { Component } from "react";
 import { withRouter } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  UncontrolledAlert,
+} from "reactstrap";
+
+import isAuthenticated from "../../helper/authenticate";
 
 class AddEmployee extends Component {
   constructor(props) {
@@ -12,14 +25,10 @@ class AddEmployee extends Component {
   }
 
   // checking for token
-  componentDidMount() {
+  async componentDidMount() {
     document.title = "Add Employee";
 
-    const authToken = localStorage.getItem("Authorization");
-
-    if (authToken) {
-      this.getManagerDetails(authToken);
-    } else {
+    if (!(await isAuthenticated(false))) {
       this.props.history.replace("/dashboard");
     }
   }
@@ -86,49 +95,71 @@ class AddEmployee extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Add Employee</h1>
-        <div className="info">{this.state.infoMessage}</div>
-        <div className="error">{this.state.errorMessage}</div>
-        <form onSubmit={this.handleSubmit}>
-          <div>
-            <label>
-              Name
-              <input
-                name="name"
-                type="text"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Experience
-              <input
-                name="experience"
-                type="number"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Salary
-              <input
-                name="salary"
-                type="number"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <button type="button" onClick={this.props.history.goBack}>
-              Go Back
-            </button>
-            <button type="submit">Add Employee</button>
-          </div>
-        </form>
-      </div>
+      <Container>
+        <Row>
+          <Col xs="11" md="9" className="mx-auto my-3">
+            <Row className="mx-auto">
+              <div className="h3 text-center mx-auto">Add Employee</div>
+            </Row>
+            <Row>
+              <Col md="9" className="mx-auto">
+                <Form onSubmit={this.handleSubmit}>
+                  {this.state.infoMessage && (
+                    <UncontrolledAlert color="info">
+                      {this.state.infoMessage}
+                    </UncontrolledAlert>
+                  )}
+                  {this.state.errorMessage && (
+                    <UncontrolledAlert color="danger">
+                      {this.state.errorMessage}
+                    </UncontrolledAlert>
+                  )}
+                  <FormGroup>
+                    <Label className="w-100 mx-auto">
+                      Name
+                      <Input
+                        name="name"
+                        type="text"
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label className="w-100 mx-auto">
+                      Experience
+                      <Input
+                        name="experience"
+                        type="number"
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label className="w-100 mx-auto">
+                      Salary
+                      <Input
+                        name="salary"
+                        type="number"
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <Row>
+                    <Col xs="6" className="text-center">
+                      <Button type="button" onClick={this.props.history.goBack}>
+                        Go Back
+                      </Button>
+                    </Col>
+                    <Col xs="6" className="text-center">
+                      <Button type="submit">Add Employee</Button>
+                    </Col>
+                  </Row>
+                </Form>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

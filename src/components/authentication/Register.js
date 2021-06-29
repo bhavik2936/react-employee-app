@@ -1,5 +1,16 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  FormGroup,
+  UncontrolledAlert,
+  Label,
+  Input,
+  Button,
+} from "reactstrap";
 
 class Register extends Component {
   constructor(props) {
@@ -76,58 +87,87 @@ class Register extends Component {
 
   render() {
     return (
-      <div>
-        <form onSubmit={this.handleSubmit}>
-          <div className="info">{this.state.infoMessage}</div>
-          <div className="error">{this.state.errorMessage}</div>
-          <div>
-            <label>
-              Name
-              <input
-                type="text"
-                name="name"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Email
-              <input
-                type="email"
-                name="email"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Password
-              <input
-                type="password"
-                name="password"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <label>
-              Confirm Password
-              <input
-                type="password"
-                name="password_confirmation"
-                onChange={this.handleInputChange}
-              />
-            </label>
-          </div>
-          <div>
-            <button type="submit">Register</button>
-          </div>
-        </form>
-        <div>
-          Have an account? <Link to="login">Log in</Link>.
-        </div>
-      </div>
+      <Container>
+        <Row>
+          <Col xs="11" md="9" className="mx-auto my-3">
+            <Row className="mx-auto">
+              <div className="h3 text-center mx-auto">Register</div>
+            </Row>
+            <Row>
+              <Col md="9" className="mx-auto w-100">
+                <Form onSubmit={this.handleSubmit}>
+                  {this.state.infoMessage && (
+                    <UncontrolledAlert color="info">
+                      {this.state.infoMessage}
+                    </UncontrolledAlert>
+                  )}
+                  {this.state.errorMessage && (
+                    <UncontrolledAlert color="danger">
+                      {this.state.errorMessage}
+                    </UncontrolledAlert>
+                  )}
+                  <FormGroup>
+                    <Label className="w-100">
+                      Name
+                      <Input
+                        type="text"
+                        name="name"
+                        required
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label className="w-100">
+                      Email
+                      <Input
+                        type="email"
+                        name="email"
+                        required
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label className="w-100">
+                      Password
+                      <Input
+                        type="password"
+                        name="password"
+                        required
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup>
+                    <Label className="w-100">
+                      Confirm Password
+                      <Input
+                        type="password"
+                        name="password_confirmation"
+                        required
+                        onChange={this.handleInputChange}
+                      />
+                    </Label>
+                  </FormGroup>
+                  <FormGroup className="text-center">
+                    <Button type="submit">Register</Button>
+                  </FormGroup>
+                </Form>
+              </Col>
+            </Row>
+            <Row>
+              <Col md="9" className="mx-auto text-center">
+                Have an account?{" "}
+                <Link to="login" className="link">
+                  Log in
+                </Link>
+                .
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
     );
   }
 }

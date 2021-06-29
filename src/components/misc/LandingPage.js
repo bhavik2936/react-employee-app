@@ -1,5 +1,8 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
+
+import Loader from "./Loader";
 
 class LandingPage extends Component {
   constructor(props) {
@@ -10,6 +13,8 @@ class LandingPage extends Component {
   }
 
   componentDidMount() {
+    document.title = process.env.REACT_APP_SITE_TITLE;
+
     this.fetchMembersCount();
   }
 
@@ -36,27 +41,40 @@ class LandingPage extends Component {
 
   render() {
     if (this.state.loading) {
-      return (
-        <>
-          <div>Loading...</div>
-        </>
-      );
+      return <Loader />;
     } else {
       return (
-        <>
-          <h1>Employee Management App</h1>
-          <div>
-            There are {this.state.employee} employees are working under the
-            guidance of {this.state.manager} managers.
-          </div>
-          <div>
-            Be the part of this system and guide more power towards a great
-            journey of success.
-          </div>
-          <Link to="/register">
-            <button>Join as Manager</button>
-          </Link>
-        </>
+        <Container>
+          <Row>
+            <Col xs="11" md="9" className="mx-auto py-3">
+              <Row className="mx-auto py-3">
+                <div className="h1 text-center mx-auto">
+                  Employee Management App
+                </div>
+              </Row>
+              <Row className="py-3">
+                <div className="h4 text-center mx-auto">
+                  There are
+                  {" " + this.state.employee + " "}
+                  employees are working under the guidance of
+                  {" " + this.state.manager + " "}
+                  managers.
+                </div>
+              </Row>
+              <Row className="py-3">
+                <div className="h6 text-center mx-auto">
+                  Be the part of this system and guide more power towards a
+                  great journey of success.
+                </div>
+              </Row>
+              <Row className="my-3">
+                <Link to="/register" className="mx-auto">
+                  <Button size="lg">Join as Manager</Button>
+                </Link>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       );
     }
   }

@@ -1,5 +1,9 @@
 import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
+import { Container, Row, Col, Button } from "reactstrap";
+
+import isAuthenticated from "../../helper/authenticate";
+import Loader from "../misc/Loader";
 
 class ViewEmployee extends Component {
   constructor(props) {
@@ -10,21 +14,21 @@ class ViewEmployee extends Component {
   }
 
   // collecting tokens
-  componentDidMount() {
+  async componentDidMount() {
     document.title = "View Employee";
 
-    const authToken = localStorage.getItem("Authorization");
     const employee = this.props.location.employee;
 
-    if (authToken && employee) {
-      this.getEmployeeDetails(authToken, employee);
+    if ((await isAuthenticated(false)) && employee) {
+      this.getEmployeeDetails(employee);
     } else {
       this.props.history.replace("/dashboard");
     }
   }
 
   // network call to fetch employee details
-  async getEmployeeDetails(authToken, employee) {
+  async getEmployeeDetails(employee) {
+    const authToken = localStorage.getItem("Authorization");
     const url =
       process.env.REACT_APP_RAILS_API_URL + `/employees/${employee}.json`;
     const options = {
@@ -50,24 +54,64 @@ class ViewEmployee extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else {
       // destructuring employee id
       const { employee } = this.props.location;
 
       return (
-        <div>
-          <h1>View Employee</h1>
-          <div>Name: {this.state.employee.name}</div>
-          <div>Experience: {this.state.employee.experience} yrs.</div>
-          <div>Salary: ₹ ${this.state.employee.salary}</div>
-          <button onClick={this.props.history.goBack}>Go Back</button>
-          <Link to={{ pathname: "editEmployee", employee: employee }}>
-            <button key={employee} id={employee}>
-              Edit
-            </button>
-          </Link>
-        </div>
+        <Container>
+          <Row>
+            <Col xs="11" md="9" className="mx-auto my-3">
+              <Row className="mx-auto">
+                <div className="h3 text-center mx-auto">View Employee</div>
+              </Row>
+              <Row className="mt-3">
+                <Col md="9" className="mx-auto">
+                  <Row>
+                    <Col xs="6">Name</Col>
+                    <Col xs="6">{this.state.employee.name}</Col>
+                    <Col xs="12">
+                      <hr />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="6">Experience</Col>
+                    <Col xs="6">{this.state.employee.experience} yrs.</Col>
+                    <Col xs="12">
+                      <hr />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="6">Salary</Col>
+                    <Col xs="6">
+                      ₹ {this.state.employee.salary.toLocaleString()}
+                    </Col>
+                    <Col xs="12">
+                      <hr />
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col xs="6" className="text-center">
+                      <Button onClick={this.props.history.goBack}>
+                        Go Back
+                      </Button>
+                    </Col>
+                    <Col xs="6" className="text-center">
+                      <Link
+                        to={{ pathname: "editEmployee", employee: employee }}
+                      >
+                        <Button key={employee} id={employee}>
+                          Edit
+                        </Button>
+                      </Link>
+                    </Col>
+                  </Row>
+                </Col>
+              </Row>
+            </Col>
+          </Row>
+        </Container>
       );
     }
   }
