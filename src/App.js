@@ -2,6 +2,7 @@ import { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import "./App.css";
+import "./404.css";
 
 // authentication modules
 import Login from "./components/authentication/Login";
