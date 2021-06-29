@@ -1,6 +1,8 @@
 import { Component } from "react";
 import { Link } from "react-router-dom";
 
+import Loader from "./Loader";
+
 class LandingPage extends Component {
   constructor(props) {
     super(props);
@@ -36,11 +38,7 @@ class LandingPage extends Component {
 
   render() {
     if (this.state.loading) {
-      return (
-        <>
-          <div>Loading...</div>
-        </>
-      );
+      return <Loader />;
     } else {
       return (
         <>

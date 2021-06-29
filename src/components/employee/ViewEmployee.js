@@ -2,6 +2,7 @@ import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 
 import isAuthenticated from "../../helper/authenticate";
+import Loader from "../misc/Loader";
 
 class ViewEmployee extends Component {
   constructor(props) {
@@ -52,7 +53,7 @@ class ViewEmployee extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else {
       // destructuring employee id
       const { employee } = this.props.location;

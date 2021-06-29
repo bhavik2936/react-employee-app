@@ -4,6 +4,7 @@ import { withRouter, Link } from "react-router-dom";
 import EmployeeManipulate from "./EmployeeManipulate";
 
 import isAuthenticated from "../../helper/authenticate";
+import Loader from "../misc/Loader";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -137,7 +138,7 @@ class Dashboard extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else if (this.state.responseError) {
       return <div className="error">{this.state.responseError}</div>;
     } else {

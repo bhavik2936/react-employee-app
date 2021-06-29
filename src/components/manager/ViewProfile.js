@@ -2,6 +2,7 @@ import { Component } from "react";
 import { withRouter, Link } from "react-router-dom";
 
 import isAuthenticated from "../../helper/authenticate";
+import Loader from "../misc/Loader";
 
 class ViewProfile extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class ViewProfile extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else {
       const { name, email } = this.state.manager;
 

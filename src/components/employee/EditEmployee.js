@@ -2,6 +2,7 @@ import { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import isAuthenticated from "../../helper/authenticate";
+import Loader from "../misc/Loader";
 
 class EditEmployee extends Component {
   constructor(props) {
@@ -121,7 +122,7 @@ class EditEmployee extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else {
       return (
         <div>

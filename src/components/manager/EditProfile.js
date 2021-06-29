@@ -2,6 +2,7 @@ import { Component } from "react";
 import { withRouter } from "react-router-dom";
 
 import isAuthenticated from "../../helper/authenticate";
+import Loader from "../misc/Loader";
 
 class EditProfile extends Component {
   constructor(props) {
@@ -112,7 +113,7 @@ class EditProfile extends Component {
 
   render() {
     if (this.state.loading) {
-      return <div>Loading...</div>;
+      return <Loader />;
     } else {
       return (
         <div>
